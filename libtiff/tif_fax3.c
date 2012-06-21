@@ -589,7 +589,7 @@ Fax3PutBits(TIFF* tif, unsigned int bits, unsigned int length)
 #ifdef FAX3_DEBUG
 #define	DEBUG_COLOR(w) (tab == TIFFFaxWhiteCodes ? w "W" : w "B")
 #define	DEBUG_PRINT(what,len) {						\
-    int t;								\
+    int t;								            \
     printf("%08X/%-2d: %s%5d\t", data, bit, DEBUG_COLOR(what), len);	\
     for (t = length-1; t >= 0; t--)					\
 	putchar(code & (1<<t) ? '1' : '0');				\
@@ -773,7 +773,7 @@ static	int32 find1span(unsigned char*, int32, int32);
  * table.  The ``base'' of the bit string is supplied
  * along with the start+end bit indices.
  */
-inline static int32
+static int32
 find0span(unsigned char* bp, int32 bs, int32 be)
 {
 	int32 bits = be - bs;
@@ -832,7 +832,7 @@ find0span(unsigned char* bp, int32 bs, int32 be)
 	return (span);
 }
 
-inline static int32
+static int32
 find1span(unsigned char* bp, int32 bs, int32 be)
 {
 	int32 bits = be - bs;
