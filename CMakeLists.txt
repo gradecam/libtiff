@@ -15,76 +15,120 @@ ENDMACRO(ADD_PREFIX)
 
 # generating config.h file:
 MESSAGE("Configure: libtiff - generating tif_config.h:")
-    INCLUDE (CheckIncludeFiles)
-    INCLUDE (CheckFunctionExists)
-    INCLUDE (CheckSymbolExists)
-    INCLUDE (CheckLibraryExists)
-    INCLUDE (CheckTypeSize)
+INCLUDE (CheckIncludeFiles)
+INCLUDE (CheckFunctionExists)
+INCLUDE (CheckSymbolExists)
+INCLUDE (CheckLibraryExists)
+INCLUDE (CheckTypeSize)
 
-    SET(CCITT_SUPPORT 1)
-    SET(CHECK_JPEG_YCBCR_SUBSAMPLING 1)
-    SET(CXX_SUPPORT 1)
-    SET(DEFAULT_EXTRASAMPLE_AS_ALPHA 1)
 
-    IF(MACOS)
-        # TODO:
-        #SET(HAVE_APPLE_OPENGL_FRAMEWORK 1)
-    ENDIF()
+    if (NOT EMSCRIPTEN)
+        # Emscripten I can't get the cmake checks to work, so we'll have to hardcode them
+        SET(CCITT_SUPPORT 1)
+        SET(CHECK_JPEG_YCBCR_SUBSAMPLING 1)
+        SET(CXX_SUPPORT 1)
+        SET(DEFAULT_EXTRASAMPLE_AS_ALPHA 1)
 
-    CHECK_INCLUDE_FILES (assert.h HAVE_ASSERT_H)
-    CHECK_INCLUDE_FILES (dlfcn.h HAVE_DLFCN_H )
-    CHECK_INCLUDE_FILES (fcntl.h HAVE_FCNTL_H )
-    CHECK_FUNCTION_EXISTS(floor HAVE_FLOOR)
-    CHECK_FUNCTION_EXISTS(getopt HAVE_GETOPT)
+        IF(MACOS)
+            # TODO:
+            #SET(HAVE_APPLE_OPENGL_FRAMEWORK 1)
+        ENDIF()
 
-    SET(HAVE_IEEEFP 1) # TODO!!!
+        CHECK_INCLUDE_FILES (assert.h HAVE_ASSERT_H)
+        CHECK_INCLUDE_FILES (dlfcn.h HAVE_DLFCN_H )
+        CHECK_INCLUDE_FILES (fcntl.h HAVE_FCNTL_H )
+        CHECK_FUNCTION_EXISTS(floor HAVE_FLOOR)
+        CHECK_FUNCTION_EXISTS(getopt HAVE_GETOPT)
 
-    #Define to 1 if the system has the type `int16'.
-    #undef HAVE_INT16
+        SET(HAVE_IEEEFP 1) # TODO!!!
 
-    #Define to 1 if the system has the type `int32'.
-    #undef HAVE_INT32
+        #Define to 1 if the system has the type `int16'.
+        #undef HAVE_INT16
 
-    #Define to 1 if the system has the type `int8'.
-    #undef HAVE_INT8
+        #Define to 1 if the system has the type `int32'.
+        #undef HAVE_INT32
 
-    CHECK_INCLUDE_FILES (inttypes.h HAVE_INTTYPES_H )
-    CHECK_FUNCTION_EXISTS(isascii HAVE_ISASCII)
-    CHECK_FUNCTION_EXISTS(lfind HAVE_LFIND)
+        #Define to 1 if the system has the type `int8'.
+        #undef HAVE_INT8
 
-    CHECK_LIBRARY_EXISTS(c "" "" HAVE_LIBC)
-    CHECK_LIBRARY_EXISTS(m "" "" HAVE_LIBM)
+        CHECK_INCLUDE_FILES (inttypes.h HAVE_INTTYPES_H )
+        CHECK_FUNCTION_EXISTS(isascii HAVE_ISASCII)
+        CHECK_FUNCTION_EXISTS(lfind HAVE_LFIND)
 
-    CHECK_INCLUDE_FILES (limits.h HAVE_LIMITS_H )
-    CHECK_INCLUDE_FILES (malloc.h HAVE_MALLOC_H )
-    CHECK_FUNCTION_EXISTS(memmove HAVE_MEMMOVE)
+        CHECK_LIBRARY_EXISTS(c "" "" HAVE_LIBC)
+        CHECK_LIBRARY_EXISTS(m "" "" HAVE_LIBM)
 
-    CHECK_INCLUDE_FILES (memory.h HAVE_MEMORY_H )
+        CHECK_INCLUDE_FILES (limits.h HAVE_LIMITS_H )
+        CHECK_INCLUDE_FILES (malloc.h HAVE_MALLOC_H )
+        CHECK_FUNCTION_EXISTS(memmove HAVE_MEMMOVE)
 
-    CHECK_FUNCTION_EXISTS(memset HAVE_MEMSET)
-    CHECK_FUNCTION_EXISTS(mmap HAVE_MMAP)
-    CHECK_FUNCTION_EXISTS(pow HAVE_POW)
+        CHECK_INCLUDE_FILES (memory.h HAVE_MEMORY_H )
 
-    #Define if you have POSIX threads libraries and header files.
-    #undef HAVE_PTHREAD
+        CHECK_FUNCTION_EXISTS(memset HAVE_MEMSET)
+        CHECK_FUNCTION_EXISTS(mmap HAVE_MMAP)
+        CHECK_FUNCTION_EXISTS(pow HAVE_POW)
 
-    CHECK_INCLUDE_FILES (search.h HAVE_SEARCH_H )
-    CHECK_FUNCTION_EXISTS(sqrt HAVE_SQRT)
-    CHECK_INCLUDE_FILES (stdint.h HAVE_STDINT_H )
-    CHECK_INCLUDE_FILES (stdlib.h HAVE_STDLIB_H )
-    CHECK_FUNCTION_EXISTS(strcasecmp HAVE_STRCASECMP)
-    CHECK_FUNCTION_EXISTS(strchr HAVE_STRCHR)
-    CHECK_INCLUDE_FILES (strings.h HAVE_STRINGS_H )
-    CHECK_INCLUDE_FILES (string.h HAVE_STRING_H )
-    CHECK_FUNCTION_EXISTS(strrchr HAVE_STRRCHR)
-    CHECK_FUNCTION_EXISTS(strstr HAVE_STRSTR)
-    CHECK_FUNCTION_EXISTS(strtol HAVE_STRTOL)
-    CHECK_FUNCTION_EXISTS(strtoul HAVE_STRTOUL)
-    CHECK_INCLUDE_FILES ("sys/stat.h" HAVE_SYS_STAT_H )
-    CHECK_INCLUDE_FILES ("sys/time.h" HAVE_SYS_TIME_H )
-    CHECK_INCLUDE_FILES ("sys/types.h" HAVE_SYS_TYPES_H )
-    CHECK_INCLUDE_FILES (unistd.h HAVE_UNISTD_H )
-    CHECK_INCLUDE_FILES (windows.h HAVE_WINDOWS_H )
+        #Define if you have POSIX threads libraries and header files.
+        #undef HAVE_PTHREAD
+
+        CHECK_INCLUDE_FILES (search.h HAVE_SEARCH_H )
+        CHECK_FUNCTION_EXISTS(sqrt HAVE_SQRT)
+        CHECK_INCLUDE_FILES (stdint.h HAVE_STDINT_H )
+        CHECK_INCLUDE_FILES (stdlib.h HAVE_STDLIB_H )
+        CHECK_FUNCTION_EXISTS(strcasecmp HAVE_STRCASECMP)
+        CHECK_FUNCTION_EXISTS(strchr HAVE_STRCHR)
+        CHECK_INCLUDE_FILES (strings.h HAVE_STRINGS_H )
+        CHECK_INCLUDE_FILES (string.h HAVE_STRING_H )
+        CHECK_FUNCTION_EXISTS(strrchr HAVE_STRRCHR)
+        CHECK_FUNCTION_EXISTS(strstr HAVE_STRSTR)
+        CHECK_FUNCTION_EXISTS(strtol HAVE_STRTOL)
+        CHECK_FUNCTION_EXISTS(strtoul HAVE_STRTOUL)
+        CHECK_INCLUDE_FILES ("sys/stat.h" HAVE_SYS_STAT_H )
+        CHECK_INCLUDE_FILES ("sys/time.h" HAVE_SYS_TIME_H )
+        CHECK_INCLUDE_FILES ("sys/types.h" HAVE_SYS_TYPES_H )
+        CHECK_INCLUDE_FILES (unistd.h HAVE_UNISTD_H )
+        CHECK_INCLUDE_FILES (windows.h HAVE_WINDOWS_H )
+    else()
+        # Hardcode support file things in emscripten
+
+        set(HAVE_ASSERT_H      1)
+        set(HAVE_DLFCN_H       1)
+        set(HAVE_FCNTL_H       1)
+        set(HAVE_FLOOR         1)
+        set(HAVE_GETOPT        1)
+        set(HAVE_INTTYPES_H    1)
+        set(HAVE_ISASCII       1)
+        set(HAVE_LFIND         1)
+        set(HAVE_LIBC          1)
+        set(HAVE_LIBM          1)
+        set(HAVE_LIMITS_H      1)
+        set(HAVE_MALLOC_H      1)
+        set(HAVE_MEMMOVE       1)
+        set(HAVE_MEMORY_H      1)
+
+        set(HAVE_MEMSET        1)
+        set(HAVE_MMAP          1)
+        set(HAVE_POW           1)
+
+        set(HAVE_SEARCH_H      1)
+        set(HAVE_SQRT          1)
+        set(HAVE_STDINT_H      1)
+        set(HAVE_STDLIB_H      1)
+        set(HAVE_STRCASECMP    1)
+        set(HAVE_STRCHR        1)
+        set(HAVE_STRINGS_H     1)
+        set(HAVE_STRING_H      1)
+        set(HAVE_STRRCHR       1)
+        set(HAVE_STRSTR        1)
+        set(HAVE_STRTOL        1)
+        set(HAVE_STRTOUL       1)
+        set(HAVE_SYS_STAT_H    1)
+        set(HAVE_SYS_TIME_H    1)
+        set(HAVE_SYS_TYPES_H   1)
+        set(HAVE_UNISTD_H      1)
+        set(HAVE_WINDOWS_H     1)
+    endif()
+
 
     #Native cpu byte order: 1 if big-endian (Motorola) or 0 if little-endian
     #(Intel)
@@ -121,8 +165,15 @@ MESSAGE("Configure: libtiff - generating tif_config.h:")
     #Define to necessary symbol if this constant uses a non-standard name onyour system.
     #undef PTHREAD_CREATE_JOINABLE
 
+    # When using emscripten, these don't work correctly
     CHECK_TYPE_SIZE("int"       SIZEOF_INT)
     CHECK_TYPE_SIZE("long"      SIZEOF_LONG)
+    if (NOT SIZEOF_INT)
+        message("Overriding size of int")
+        set(SIZEOF_INT 4)
+        set(SIZEOF_LONG 4)
+    endif()
+    message("Size of int: ${SIZEOF_INT}, ${SIZEOF_LONG}")
 
     SET(STDC_HEADERS 1)
     SET(STRIPCHOP_DEFAULT "TIFF_STRIPCHOP")
@@ -132,6 +183,9 @@ MESSAGE("Configure: libtiff - generating tif_config.h:")
     SET(TIME_WITH_SYS_TIME 1)
 
     CHECK_SYMBOL_EXISTS("struct tm" "sys/time.h" TM_IN_SYS_TIME)
+    if (EMSCRIPTEN)
+        set(TIME_WITH_SYS_TIME 1)
+    endif()
     SET(VERSION "3.8.2")
 
     #Define to 1 if your processor stores words with the most significant byte first (like Motorola and SPARC, unlike Intel and VAX).
@@ -143,10 +197,10 @@ MESSAGE("Configure: libtiff - generating tif_config.h:")
     #undef _FILE_OFFSET_BITS
 
     # Define for large files, on AIX-style hosts.
-     #undef _LARGE_FILES
+    #undef _LARGE_FILES
 
     # Define to empty if `const' does not conform to ANSI C.
-     #undef const
+    #undef const
 
     #Define to `__inline__' or `__inline' if that's what the C compiler
     #calls it, or to nothing if 'inline' is not supported under any name.

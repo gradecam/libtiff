@@ -96,7 +96,7 @@
 			#cmakedefine HAVE_STDINT_H 1
 
 			/* Define to 1 if you have the <stdlib.h> header file. */
-			#cmakedefine HAVE_STDLIB_H 1
+			#cmakedefine HAVE_STDLIB_H
 
 			/* Define to 1 if you have the `strcasecmp' function. */
 			#cmakedefine HAVE_STRCASECMP 1
@@ -215,10 +215,10 @@
 			#define STRIP_SIZE_DEFAULT ${STRIP_SIZE_DEFAULT}
 
 			/* Enable SubIFD tag (330) support */
-			#cmakedefine SUBIFD_SUPPORT
+			#cmakedefine SUBIFD_SUPPORT 1
 
 			/* Support ThunderScan 4-bit RLE algorithm */
-			#cmakedefine THUNDER_SUPPORT
+			#cmakedefine THUNDER_SUPPORT 1
 
 			/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
 			#cmakedefine TIME_WITH_SYS_TIME 1
