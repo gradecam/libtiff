@@ -278,6 +278,9 @@ if(NOT WIN32)
  if(NOT M_LIBRARY)
    message(STATUS
      "math library 'libm' not found - floating point support disabled")
+ elseif(EMSCRIPTEN)
+   # not needed on emscripten
+   set(M_LIBRARY "")
  endif()
 else()
  # not needed on windows
@@ -285,6 +288,7 @@ else()
 endif()
     
 ADD_LIBRARY(tiff ${TIFF_SRCS})
+set(TIFF_LIBRARY tiff PARENT_SCOPE)
 TARGET_LINK_LIBRARIES (tiff ${ZLIB_LIBRARY} ${JPEG_LIBRARY} ${M_LIBRARY})
 
 ADD_LIBRARY(tiffxx libtiff/tif_stream.cxx)
